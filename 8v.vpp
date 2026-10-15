@@ -1,0 +1,54 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int n;
+
+bool b[1001];
+
+void solve() {
+    cin >> n;
+    for (int i = 1; i <= n; i++) {
+        b[i] = 0;
+    }
+    int temp = n, cur = 1;
+    int a[n + 1];
+    int pos = 0;
+    while (temp) {
+        pos++;
+        if (pos > n) pos %= n;
+        int next = cur + b[pos];
+        next %= temp;
+        if (next == 0) {
+            next = temp;
+        }
+        while (next) {
+            next--;
+            pos++;
+            if (pos > n) pos %= n;
+            next += b[pos];
+        }
+        b[pos] = 1;
+        a[pos] = cur;
+        temp--;
+        cur++;
+    }
+    for (int i = 1; i <= n; i++) {
+        if (!b[i]) {
+            cout << n << " ";
+        } else {
+            cout << a[i] << " ";
+        }
+    }
+    cout << "\n";
+}
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    int t;
+    cin >> t;
+    while (t--) {
+        solve();
+    }
+}
